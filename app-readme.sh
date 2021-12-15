@@ -4,7 +4,7 @@ cat $APP/intro.md
 echo
 
 for f in $(find $APP -type f -not -name "*.md" -not -name "screenshot.png" | sort); do
-  ext=$(echo $f | cut -d. -f2)
+  ext=${f##*.}
 
   if [ "$ext" = "js" ]; then
     hlmode="javascript"
@@ -15,6 +15,7 @@ for f in $(find $APP -type f -not -name "*.md" -not -name "screenshot.png" | sor
   echo $f
   echo '```' $hlmode
   cat $f
+  echo
   echo '```'
 
 done

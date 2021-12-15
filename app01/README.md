@@ -24,6 +24,7 @@ app.whenReady().then(async () => {
   await bwin.loadFile('renderer.html');
   bwin.show();
 });
+
 ```
 app01/renderer.html
 ``` html
@@ -39,6 +40,7 @@ app01/renderer.html
     <script src="./renderer.js"></script>
   </body>
 </html>
+
 ```
 app01/renderer.js
 ``` javascript
@@ -46,10 +48,12 @@ const fs = require('fs');
 const path = require('path');
 const secret = fs.readFileSync(path.join(__dirname, 'secret.txt'));
 document.querySelector('pre').innerHTML = secret;
+
 ```
 app01/secret.txt
 ``` html
 something nobody will see… wait!?
+
 ```
 
 ![](app01/screenshot.png)
