@@ -20,4 +20,5 @@ done
 
 if [ -f $APP/screenshot.png ]; then
   echo "![]($APP/screenshot.png)"
+  echo "![](./screenshot.png)"
 fi

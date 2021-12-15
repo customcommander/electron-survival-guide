@@ -1,23 +1,12 @@
 ## Bad practice 101
 
-Sometimes it helps to know what **not to do**. Unfortunately this is something you've probably seen a lot.
+Just to be clear: **don't do this!**
 
-app01/answer.js
-``` javascript
-module.exports = () => `
- ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄
-▐░▌       ▐░▌▐░░░░░░░░░░░▌
-▐░▌       ▐░▌ ▀▀▀▀▀▀▀▀▀█░▌
-▐░▌       ▐░▌          ▐░▌
-▐░█▄▄▄▄▄▄▄█░▌          ▐░▌
-▐░░░░░░░░░░░▌ ▄▄▄▄▄▄▄▄▄█░▌
- ▀▀▀▀▀▀▀▀▀█░▌▐░░░░░░░░░░░▌
-          ▐░▌▐░█▀▀▀▀▀▀▀▀▀
-          ▐░▌▐░█▄▄▄▄▄▄▄▄▄
-          ▐░▌▐░░░░░░░░░░░▌
-           ▀  ▀▀▀▀▀▀▀▀▀▀▀
-`;
-```
+This shows how easy it is for *any* JavaScript code running in the renderer process to behave like a full-blown Node.js program including access to Node.js `require` and its native APIs.
+
+We have also disabled context isolation meaning that any script (including third-party script) can also manipulate the page and its data (e.g. cookies).
+
+If your app gets compromised (e.g. XSS, rogue third-party dependency, etc.) the potential for damage is huge.
 app01/main.js
 ``` javascript
 const {app, BrowserWindow} = require('electron');
@@ -45,13 +34,21 @@ app01/renderer.html
   </head>
   <body>
     <pre></pre>
+    <!-- This could be a third-party script -->
     <script src="./renderer.js"></script>
   </body>
 </html>
 ```
 app01/renderer.js
 ``` javascript
-const answer = require('./answer');
-document.querySelector('pre').innerHTML = answer();
+const fs = require('fs');
+const path = require('path');
+const secret = fs.readFileSync(path.join(__dirname, 'secret.txt'));
+document.querySelector('pre').innerHTML = secret;
+```
+app01/secret.txt
+``` html
+something nobody will see… wait!?
 ```
 ![](app01/screenshot.png)
+![](./screenshot.png)
