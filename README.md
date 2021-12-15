@@ -16,6 +16,7 @@ This shows how easy it is for *any* JavaScript code running in the renderer proc
 We have also disabled context isolation meaning that any script (including third-party script) can also manipulate the page and its data (e.g. cookies).
 
 If your app gets compromised (e.g. XSS, rogue third-party dependency, etc.) the potential for damage is huge.
+
 app01/main.js
 ``` javascript
 const {app, BrowserWindow} = require('electron');
@@ -59,5 +60,6 @@ app01/secret.txt
 ``` html
 something nobody will see… wait!?
 ```
+
 ![](app01/screenshot.png)
 ![](./screenshot.png)
