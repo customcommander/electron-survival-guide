@@ -16,4 +16,4 @@ jobs:
         run: make -B build/docs
 
       - name: Publish Site
-        run: docker run --rm -v $(pwd)/build:/workspace -w /workspace squidfunk/mkdocs-material:8.1.2 gh-deploy --force
+        run: docker run --rm -v $(pwd):/workspace -w /workspace/build squidfunk/mkdocs-material:8.1.2 gh-deploy --force
