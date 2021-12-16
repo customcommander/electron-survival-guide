@@ -1,0 +1,28 @@
+# This is a "template". The navigation (nav) is generated at build time.
+site_name: The Electron Survival Guide
+repo_url: https://github.com/customcommander/electron-survival-guide
+edit_uri: ""
+theme:
+  name: material
+  palette:
+    primary: black
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.sections
+    - content.code.annotate
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+nav:
+  - Home: README.md
+  - 'How To':
+# Warning: Empty line below on purpose. Keep it!

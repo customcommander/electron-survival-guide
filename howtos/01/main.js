@@ -1,12 +1,15 @@
+/**
+We have enabled the node integration and disabled context isolation:
+**/
 const {app, BrowserWindow} = require('electron');
 
 app.whenReady().then(async () => {
   const bwin = new BrowserWindow({
-    width: 400,
-    height: 250,
+    width: 300,
+    height: 300,
     webPreferences: {
-      nodeIntegration: false, // <- Good!
-      contextIsolation: true  // <- Nice!
+      nodeIntegration: true,  // <- Don't do this!
+      contextIsolation: false // <- Don't do this!
     }
   });
   await bwin.loadFile('renderer.html');

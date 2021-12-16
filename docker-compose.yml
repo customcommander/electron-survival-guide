@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  docs:
+    image: squidfunk/mkdocs-material:8.1.2
+    working_dir: /workspace/
+    volumes:
+      - ./build:/workspace
+    ports:
+      - 8099:8000

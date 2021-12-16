@@ -1,7 +1,24 @@
-apps = $(shell find . -type d -name "app*" -depth 1)
+howtos=$(patsubst howtos/%,build/docs/howtos/%.md,$(shell find howtos -type d -depth 1))
 
-README.md: intro.md $(patsubst %,%/README.md,$(apps))
-	cat $< $(filter-out intro.md,$(sort $^)) >$@
+build/docs: build/mkdocs.yml build/docs/README.md build/docs/img
 
-%/README.md:
-	APP=$* ./app-readme.sh >$@
+build/docs/img: $(patsubst howtos/%,build/docs/img/%,$(shell find howtos -type f -name "*.png"))
+build/docs/img/%: howtos/%
+	mkdir -p $(@D)
+	cp -f $< $@
+
+build/mkdocs.yml: mkdocs.yml $(howtos)
+	mkdir -p $(@D)
+	cat $< >$@
+	for p in $$(echo $(patsubst build/docs/%,%,$(sort $(filter-out $<,$^)))); do echo "    - '$$p'"; done >>$@
+
+build/docs/README.md: README.md
+	mkdir -p $(@D)
+	cp -f $< $@
+
+build/docs/howtos/%.md: scripts/readme.sh scripts/code.awk $(shell find howtos -type f -depth 2)
+	echo $^
+	mkdir -p $(@D)
+	HOWTO=$* ./$< >$@
+
+clean:; rm -rfv build

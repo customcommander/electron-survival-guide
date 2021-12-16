@@ -1,0 +1,30 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+        run: npm i
+      - name: Build Docs
+        run: make build/docs
+
+      - name: Start Publishing
+        run: docker-compose up
+
+      - name: Publish Site
+        run: docker-compose exec -T docs mkdocs gh-deploy --force
+
+      - name: Cleanup
+        run: docker-compose down
