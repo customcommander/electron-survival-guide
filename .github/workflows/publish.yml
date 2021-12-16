@@ -12,22 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node 12
-        uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-
-      - name: Install Dependencies
-        run: npm i
-
       - name: Build Docs
-        run: make build/docs
-
-      - name: Start Publishing
-        run: docker-compose up
+        run: docker run --rm -v $(pwd):/workspace -w /workspace customcommander/webdev make build/docs
 
       - name: Publish Site
-        run: docker-compose exec -T docs mkdocs gh-deploy --force
+        run: docker run --rm -v $(pwd)/build:/workspace -w /workspace squidfunk/mkdocs-material:8.1.2 mkdocs gh-deploy --force
 
       - name: Cleanup
         run: docker-compose down
