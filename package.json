@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "make build/docs && docker-compose up",
+    "start": "make -B build/docs && docker-compose up",
     "stop": "docker-compose down",
-    "build-docs": "make build/docs"
+    "build-docs": "make -B build/docs"
   },
   "keywords": [],
   "author": "",
