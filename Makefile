@@ -17,7 +17,6 @@ build/docs/README.md: README.md
 	cp -f $< $@
 
 build/docs/howtos/%.md: scripts/readme.sh scripts/code.awk
-	echo $^
 	mkdir -p $(@D)
 	HOWTO=$* ./$< >$@
 
