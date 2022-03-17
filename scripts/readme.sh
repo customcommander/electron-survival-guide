@@ -4,6 +4,7 @@ intromd_file=howtos/$HOWTO/intro.md
 mainjs_file=howtos/$HOWTO/main.js
 rendererhtml_file=howtos/$HOWTO/renderer.html
 rendererjs_file=howtos/$HOWTO/renderer.js
+preload_file=howtos/$HOWTO/preload.js
 webpack_file=howtos/$HOWTO/webpack.config.js
 
 code_intro()
@@ -30,6 +31,12 @@ if [ -f $mainjs_file ]; then
   echo "## Main Process"
   code_intro $mainjs_file
   code_block javascript $mainjs_file
+fi
+
+if [ -f $preload_file ]; then
+  echo "## Preload Script"
+  code_intro $preload_file
+  code_block javascript $preload_file
 fi
 
 if [ -f $rendererhtml_file ]; then
