@@ -2,7 +2,7 @@ howtos=$(patsubst howtos/%,build/docs/howtos/%.md,$(shell find howtos -mindepth 
 
 build/docs: build/mkdocs.yml build/docs/README.md build/docs/img
 
-build/docs/img: $(patsubst howtos/%,build/docs/img/%,$(shell find howtos -type f -name "*.png"))
+build/docs/img: $(patsubst howtos/%,build/docs/img/%,$(shell find howtos -type f -name "*.png" -or -name "*.gif"))
 build/docs/img/%: howtos/%
 	mkdir -p $(@D)
 	cp -f $< $@

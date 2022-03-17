@@ -50,7 +50,7 @@ if [ -f $webpack_file ]; then
   code_block javascript $webpack_file
 fi
 
-imgs=$(find howtos/$HOWTO -type f -name "*.png")
+imgs=$(find howtos/$HOWTO -type f -name "*.png" -or -name "*.gif")
 
 if [ "$imgs" != "" ]; then
   echo "## Screenshot"
