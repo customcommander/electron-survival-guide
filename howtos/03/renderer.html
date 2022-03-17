@@ -1,0 +1,24 @@
+<!--
+The `MY_APP` namespace is defined in the preload script and contains
+a method to enquire about the app location.
+-->
+<html>
+  <head>
+    <style>
+      body {background-color:black;color:limegreen}
+    </style>
+  </head>
+  <body>
+    <h1>Are you running this app from the Applications folder?</h1>
+    <div id="response"></div>
+    <script>
+      MY_APP.isInApplicationsFolder().then(yes => {
+        if (yes) {
+          document.querySelector('#response').innerHTML = 'Yes';
+        } else {
+          document.querySelector('#response').innerHTML = 'No';
+        }
+      });
+    </script>
+  </body>
+</html>
