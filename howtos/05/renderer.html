@@ -1,0 +1,26 @@
+<!--
+Each renderer process creates a unique random value at the start
+and keep sending it back to the main process which responds
+by echoing back that same value.
+-->
+<html>
+
+<head>
+  <style>
+    body {background-color:black;color:limegreen}
+  </style>
+</head>
+
+<body>
+  <div id="response"></div>
+  <script>
+    const rand = Math.random();
+    setInterval(() => {
+      MY_APP.echo(rand).then(any => {
+        document.querySelector('#response').innerHTML += `${any}<br>`;
+      });
+    }, 1000);
+  </script>
+</body>
+
+</html>
