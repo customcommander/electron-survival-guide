@@ -1,0 +1,33 @@
+<!--
+We use the pair of functions returned by `MY_APP.on('count')`
+with RxJS's `fromEventPattern` function to get an observable
+on that channel. Every time the main process emits on that channel
+that observable will emit the same thing.
+-->
+<html>
+
+<head>
+  <style>
+    body {background-color:black;color:limegreen}
+  </style>
+  <script src="https://unpkg.com/rxjs@7.5.5/dist/bundles/rxjs.umd.min.js"></script>
+</head>
+
+<body>
+  <div id="response"></div>
+  <script>
+    const {fromEventPattern} = rxjs;
+    const {take} = rxjs.operators;
+
+    const [addListener, removeListener] = window.MY_APP.on('count');
+    const count$ = fromEventPattern(addListener, removeListener).pipe(
+      take(5) // Unsubscribe automatically after 5 emissions.
+    );
+
+    count$.subscribe((count) => {
+      document.querySelector('#response').innerHTML += `${count}<br>`;
+    });
+  </script>
+</body>
+
+</html>
